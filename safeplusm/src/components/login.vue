@@ -1,18 +1,18 @@
 <template>
   <div class="aside1">
 
-      <h4>快速登录 </h4>
+      <h4>快速登录<span class="gobackbtn"><a href="#/">返回</a></span></h4>
       <div class="inputcheck">
         <el-input class='form' v-model="username" placeholder="请填写手机号或邮箱"></el-input>
         <span  v-show="usernameis" >手机号或邮箱不存在</span>
       </div>
       <div class="inputcheck" style="margin-bottom:10px;">
-       <el-input class='form' v-model="password" placeholder="请输入密码"></el-input>
+       <el-input type="password" class='form' v-model="password" placeholder="请输入密码"></el-input>
        <span  v-show="passwordis" >密码错误请重新输入</span>
       </div>
       <div style="clear:both"></div>
-      <a class="btn" @click="sublogin"><img src="/static/img/btn.png" />立即登录</a>
-      <div class="btna">
+      <a class="btn" @click="sublogin">立即登录</a>
+      <!-- <div class="btna">
         <a style="background:#00cc33">
           <img style="margin-top:4px;margin-left:6px;margin-right:2px;" src="/static/img/wx.png">微信
         </a>
@@ -22,10 +22,11 @@
         <a style="background:#00ccff;line-height:34px;">
           <img style="margin-left:8px;margin-top:2px;margin-right:3px;" src="/static/img/qq.png">QQ
         </a>
-      </div>
+      </div> -->
       <div class="ahref">
         <p>还没有账号？</p>
-        <a href="#" @click="reset(2)">注册</a><a @click="login" class="forgot" href="/forget">忘记密码</a>
+        <a href="#/reset">注册</a>
+        <!-- <a @click="login" class="forgot" href="/forget">忘记密码</a> -->
       </div>
   </div>
 </template>
@@ -38,37 +39,14 @@
     name:'login',
     data () {
     return {
-      munuis:false,
-      emalicodeis:false,
       baseurl:Url.baseurl,
-      search: '',
-      logis:true,
-      resetis:false,
-      remail:'',
-      rverify:'',
-      rpassword:'',
-      rtwopwd:'',
       username:'',
       password:'',
-      rpasswordis:false,
-      rtwopwdis:false,
-      remailis:false,
-      rverifyis:false,
       usernameis:false,
       passwordis:false,
     }
   },
   methods:{
-    login(index){
-      if(index==1){
-        this.logis=true;
-      }else if(index==2){
-        this.resetis=false;
-        this.logis=true;
-      }else{
-        this.logis=false;
-      }
-    },
     sublogin(){
       var vm=this;
       if(this.username!='' && this.password!=""){
@@ -84,25 +62,25 @@
             }
           }).then(function(response){
               if(response.data.status==1){
-                vm.login();
                 //console.log(response.data)
-                  if(response.data.verified==1){
-                    vm.$store.state.userstatus="未认证"
-                  }else if(response.data.verified==2){
-                    vm.$store.state.userstatus="待确认"
-                  }else if(response.data.verified==3){
-                    vm.$store.state.userstatus="已认证"
-                  }
-                  vm.$store.state.userurl=vm.baseurl+'/static/'+response.data.avatar;
+                  // if(response.data.verified==1){
+                  //   vm.$store.state.userstatus="未认证"
+                  // }else if(response.data.verified==2){
+                  //   vm.$store.state.userstatus="待确认"
+                  // }else if(response.data.verified==3){
+                  //   vm.$store.state.userstatus="已认证"
+                  // }
+                vm.$store.state.userurl=response.data.avatar;
                 vm.$store.state.loginis=true;
+                window.location.href="#/"
               }else{
-                vm.$message.warning("账号密码错误");
+                alert("账号密码错误");
               }
           });
           
 
       }else{
-        this.$message.error('请填写信息');
+        alert('请填写信息');
       }
       
     },
@@ -112,6 +90,19 @@
 
 </script>
 <style scoped="scoped">
+.gobackbtn{
+  display: block;
+  float: right;
+  width: 60px;
+  height: 24px;
+  font-size: 16px;
+  background: #fff;
+  margin-right: 30px;
+  border-radius: 4px;
+  background: #f5f5f5;
+  text-align: center;
+  border: 1px solid #d7d7d7;
+}
 .aside1 .inputcheck{
   position: relative;
   margin-bottom: 40px;
@@ -163,7 +154,7 @@
     height: 36px;
     width: 260px;
     border-radius: 4px;
-    background: #ff0000;
+    background: #71b34f;
     color: #fff;
     line-height: 36px;
     text-align: center;
