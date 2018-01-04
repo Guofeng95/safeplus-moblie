@@ -2,7 +2,7 @@
   <div class="index">
   	<div class="itop">
   		<img style="height:29px;width:170px;top:8px;left:4px; " src="/static/img/logo.png">
-  		<a href="#/login"><img style="height:28px;width:28px;top:8px;right:14px; " src="/static/img/login.png"></a>
+  		<a href="#/login" v-if=""><img style="height:28px;width:28px;top:8px;right:14px; " src="/static/img/login.png"></a>
   		<img style="height:28px;width:28px;top:8px;right:64px; " src="/static/img/search.png">
   	</div>
   	<div class="nav">
