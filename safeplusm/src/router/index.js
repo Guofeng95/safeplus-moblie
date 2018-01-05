@@ -3,14 +3,28 @@ import Router from 'vue-router'
 import index from '@/components/index'
 import login from '@/components/login'
 import reset from '@/components/reset'
+import toutiao from '@/components/index/toutiao'
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'index',
-      component: index
+      component: index,
+      children: [
+        // {
+        //   path: '',
+        //   component: manger
+        // },
+        // {
+        //   path: '/submit',
+        //   component: submit
+        // },
+        {
+          path: '',
+          component: toutiao
+        },
+       ]
     },
     {
       path: '/login',
