@@ -17,6 +17,7 @@
   		<a href="#">安全头条</a>
   		<a href="#">用户中心</a>
   	</div>
+    <router-view/>
   </div>
 </template>
 
