@@ -3,14 +3,14 @@
   	<div class="itop">
   		<img style="height:29px;width:170px;top:8px;left:4px; " src="/static/img/logo.png">
   		<a href="#/login" v-if="loginis==false">
-        <img style="height:28px;width:28px;top:8px;right:64px; " src="/static/img/login.png">
+        <img style="height:28px;width:28px;top:8px;right:14px; " src="/static/img/login.png">
       </a>
-      <a href="#" v-else>
-        <img style="height:28px;width:28px;top:8px;right:64px; border-radius: 100%;" :src="userurl">
+      <a href="#" v-else @click="setout">
+        <img style="height:28px;width:28px;top:8px;right:14px; border-radius: 100%;" :src="baseurl+userurl">
       </a>
-      <span v-if="loginis" style="height:28px;width:28px;top:8px;right:14px;" @click="removein">退出</span>
-      <span v-else style="height:28px;width:28px;top:8px;right:14px;"><a href="#/login">登录</a></span>
-  		<!-- <img style="height:28px;width:28px;top:8px;right:64px; " src="/static/img/search.png"> -->
+      <!-- <span v-if="loginis" style="height:28px;width:28px;top:8px;right:14px;" @click="removein">退出</span> -->
+      <!-- <span v-else style="height:28px;width:28px;top:8px;right:14px;"><a href="#/login">登录</a></span> -->
+  		<img style="height:28px;width:28px;top:8px;right:64px; " src="/static/img/search.png">
   	</div>
   	<div class="nav">
   		<a href="#" style="width:40px;">推 荐</a>
@@ -62,6 +62,12 @@ export default {
       })
   },
   methods:{
+    setout(){
+      var con=confirm("是否退出登录？")
+      if(con){
+        this.removein();
+      }
+    },
     removein(){
         var vm=this;
         axios({
