@@ -1,7 +1,7 @@
 <template>
   <div class="toutiao">
-      <div class="newcontent" v-show="newcontentis">
-        <span @click="newcon">有新的文章发布啦,刷新一下,查看新内容！</span>
+      <div class="newcontent" v-show="newcontentis"@click="newcon">
+        有新的文章发布啦,刷新一下,查看新内容！
       </div>
       <div class="news" v-for="(item,index) in indexdata" :key="index" >
         <div class="newsone" v-if="item.form==1">
@@ -15,20 +15,6 @@
             <span>评论（{{item.comment}}）</span>
           </div>
         </div>
-        <!-- <div class="newstwo" v-else-if="item.form==2">
-          <h4  @click="article(item.id)">{{item.title}}</h4>
-          <div>
-            <img  @click="article(item.id)" style="margin-left:0;" :src="item.url[0]">
-            <img  @click="article(item.id)" :src="item.url[1]">
-            <img  @click="article(item.id)" :src="item.url[2]">
-          </div>
-          <div class="icon">
-            <span><i class="el-icon-time"></i>{{item.time}}</span>
-            <span>赞（{{item.good}}）</span>
-            <span>阅读（{{item.read}}）</span>
-            <span>评论（{{item.comment}}）</span>
-          </div>
-        </div> -->
         <div class="newsthree" v-else-if="item.form==3">
           <h4  @click="article(item.id)">{{item.title}}</h4>
           <p>{{item.content}}</p>
@@ -65,7 +51,7 @@ export default {
     return {
       nextnotice:'',
       timer:'',
-      conbotis:false,
+      conbotis:true,
       notice:'',
       baseurl:Url.baseurl,
       newcontentis:false,
@@ -212,24 +198,23 @@ export default {
     width: 100vw;
     width: 100%;
   }
-  .newcontent{
-  width: 903px;
-  height: 34px;
+.newcontent{
+  width: 94%;
+  height: 30px;
+  margin: 10px auto;
   background: #fff9ed;
   text-align: center;
-  line-height: 34px;
-  margin-bottom: 18px;
-}
-.newcontent span{
+  line-height: 30px;
   color: #ff8a00;
   font-size: 14px;
   cursor: pointer;
 }
+
 .news {
-  border-top: 1px dashed #d3d3d3;
+  border-top: 1px solid #d3d3d3;
   overflow: hidden;
-  padding-top: 24px;
-  padding-bottom: 24px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   position: relative;
   width: 100%;
 }
@@ -251,24 +236,28 @@ export default {
 
 .news p{
   font-size: 14px;
-  color: #777777;
+  color: #333;
+  width: 90%;
+  margin:0 auto;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed #d3d3d3;
 }
 .newsone img{
   margin:0 auto;
   display: block;
-  width: 320px;
-  height: 200px;
+  width: 90%;
+  height: auto;
   cursor: pointer;
 }
 .newsone p{
   margin-top: 20px;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
+
 }
 .icon{
-  position: absolute;
-  right: 0;
-  bottom: 24px;
-  color: #aaaaaa;
+  width: 90%;
+  margin: 0 auto;
+  color: #d9d9d9;
   font-size: 12px;
 }
 .newstwo img{
@@ -283,7 +272,8 @@ export default {
 }
 .newsthree p{
   margin-top: 40px;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
+
 }
 .dashline{
   border-top: 1px dashed #d3d3d3;

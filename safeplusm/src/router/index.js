@@ -4,6 +4,7 @@ import index from '@/components/index'
 import login from '@/components/login'
 import reset from '@/components/reset'
 import toutiao from '@/components/index/toutiao'
+import recommend from '@/components/index/recommend'
 Vue.use(Router)
 
 export default new Router({
@@ -16,14 +17,14 @@ export default new Router({
         //   path: '',
         //   component: manger
         // },
-        // {
-        //   path: '/submit',
-        //   component: submit
-        // },
         {
           path: '',
           component: toutiao
         },
+        {
+          path: '/recommend',
+          component: recommend
+        }
        ]
     },
     {

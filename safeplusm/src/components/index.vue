@@ -13,8 +13,8 @@
   		<img style="height:28px;width:28px;top:8px;right:64px; " src="/static/img/search.png">
   	</div>
   	<div class="nav">
-  		<a href="#" style="width:40px;">推 荐</a>
-  		<a href="#">安全头条</a>
+  		<a href="#/recommend" style="width:40px;" id="recommend">推 荐</a>
+  		<a href="#/" style="color: #71b34f;" id="toutiao">安全头条</a>
   		<a href="#">用户中心</a>
   	</div>
     <router-view/>
@@ -122,7 +122,7 @@ export default {
 		width: 64px;
 		margin-top: 12px;
 	}
-	.nav a:hover{
-		color: #71b34f;
-	}
+	/*.nav a:hover{
+		
+	}*/
 </style>
