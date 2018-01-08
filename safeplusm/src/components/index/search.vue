@@ -1,28 +1,13 @@
 <template>
   <div class="toutiao">
-      <div class="newcontent" v-show="newcontentis"@click="newcon">
-        有新的文章发布啦,刷新一下,查看新内容！
-      </div>
+      <h4 class="top">{{subscripe}}<span>{{message}}</span></h4>
       <div class="news" v-for="(item,index) in indexdata" :key="index" >
-        <div class="newsone" v-if="item.form==1">
-          <h4  @click="article(item.id)" >{{item.title}}</h4>
-          <img :src="item.url[0]" @click="article(item.id)">
-          <p>{{item.content}}</p>
-          <div class="icon">
-            <span><i class="el-icon-time"></i>{{item.time}}</span>
-            <span>赞（{{item.good}}）</span>
-            <span>阅读（{{item.read}}）</span>
-            <span>评论（{{item.comment}}）</span>
-          </div>
-        </div>
-        <div class="newsthree" v-else-if="item.form==3">
+        <div class="newsthree" >
           <h4  @click="article(item.id)">{{item.title}}</h4>
           <p>{{item.content}}</p>
           <div class="icon">
             <span><i class="el-icon-time"></i>{{item.time}}</span>
-            <span>赞（{{item.good}}）</span>
             <span>阅读（{{item.read}}）</span>
-            <span>评论（{{item.comment}}）</span>
           </div>
         </div>
       </div>
@@ -47,6 +32,10 @@ export default {
       userstatus:'statusnow'
     })
   },
+  watch: {
+     "$route": "reset"
+      
+  },
   data () {
     return {
       nextnotice:'',
@@ -56,35 +45,16 @@ export default {
       baseurl:Url.baseurl,
       newcontentis:false,
       indexdata:[],
+      href:'',
+      message:'无符合要求数据',
+      subscripe:'搜索结果',
+      page:1,
+      total:1,
     }
-  },
-  beforeDestroy: function () {
-    console.log('清除')
-    clearInterval(this.timer)
   },
    mounted(){
     var vm=this;
     this.indexdata=[];
-    this.indexdataget(7,"first");
-    this.timer=setInterval(function(){
-          var date={};
-          date.notice=vm.nextnotice;
-          axios({
-              method:'post',
-              data:qs.stringify(date),
-              url:vm.baseurl + '/article/news_check_new',
-             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-          }).then(function(response){
-            if(response.data.status==1){
-              vm.newcontentis=true;
-            }else{
-              vm.newcontentis=false;
-            }
-          })
-    },10000);
-     
      function getScrollTop(){
       　　var scrollTop = 0, bodyScrollTop = 0, documentScrollTop = 0;
       　　if(document.body){
@@ -126,73 +96,84 @@ export default {
       window.onscroll = function(){
       　　if(getScrollTop() + getWindowHeight() == getScrollHeight()){
       　　　 if(vm.conbotis==true){
-                vm.indexdataget(10);
+                vm.page=vm.page+1;
+                var num=vm.total/10+1;
+                if( vm.page<=num){
+                  vm.indexdataget(10);
+                }
+                
             }
       　　}
       };
-    
+    this.reset(); 
   },
   methods:{
+    reset(){
+　　　　this.href=sessionStorage.getItem("search");
+        this.indexdataget();
+　　},
     article(id){
         window.location.href='#/article?topid='+id;
       },
-      indexdataget(limit,times){
+      indexdataget(){
         var vm=this;
         var date={};
-          date.limit=limit;
-          date.notice=this.notice;
+          date.query=this.href;
+          date.page=this.page;
           axios({
               method:'post',
               data:qs.stringify(date),
-              url:vm.baseurl + '/article/news_list',
+              url:vm.baseurl + '/article/full_text_search',
              headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
           }).then(function(response){
               if(response.data.status==1){
-                  if(times=="first"){
-                    vm.nextnotice=response.data.next_notice;
-                  }
-                  vm.notice=response.data.prev_notice;
-                  if(limit==response.data.data.length){
-                    vm.conbotis=true;
-                  }else{
-                    vm.conbotis=false;
+                vm.total=response.data.count;
+                  if( response.data.data.length!=0){
+                    vm.message="共"+vm.total+"个符合条件的结果"
                   }
                   response.data.data.forEach( function(element, index) {
                     var obj={};
                     obj.title=element.title;
                     obj.id=element.id;
                     obj.content = element.summary;
-                    obj.good=element.like_count;
                     obj.read=element.read_count;
-                    obj.comment=element.comment_count;
                     obj.time=element.publish_time;
                     obj.url=element.images;
-                    var l=element.images.length;
-                    if(l==0){
-                      obj.form=3
-                    }else {
-                      obj.form=1;
-                    }
                     vm.indexdata.push(obj);
                   });
               }else{
-                vm.$message.warning('拉取失败!');
+                vm.indexdata=[];
+                vm.message=response.data.msg;
               }
           });
-      },
-       newcon(){
-        this.indexdata=[];
-        this.indexdataget(7,"first");
-        this.newcontentis=false;
-      },
+      }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.top{
+  font-size: 24px;
+  padding: 4px 0;
+  line-height: 40px;
+  margin-left: 10px;
+  position: relative;
+  height: 40px;
+}
+.top span{
+  position: absolute;
+  display: block;
+  height: 26px;
+  font-size: 16px;
+  color: #a1a1a1;
+  text-align: center;
+  line-height: 26px;
+  top: 14px;
+  left: 130px;
+}
   .toutiao{
     width: 100vw;
     width: 100%;

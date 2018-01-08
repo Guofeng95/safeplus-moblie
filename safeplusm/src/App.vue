@@ -16,6 +16,9 @@ export default {
 </script>
 
 <style>
-  div{
+  #searchinput{
+    background: #f2f2f2;
+    height: 30px;
+    margin-top:5px;
   }
 </style>

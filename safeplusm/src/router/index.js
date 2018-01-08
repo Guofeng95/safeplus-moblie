@@ -5,6 +5,9 @@ import login from '@/components/login'
 import reset from '@/components/reset'
 import toutiao from '@/components/index/toutiao'
 import recommend from '@/components/index/recommend'
+import article from '@/components/index/article'
+import insubscripe from '@/components/index/insubscripe'
+import search from '@/components/index/search'
 Vue.use(Router)
 
 export default new Router({
@@ -13,10 +16,10 @@ export default new Router({
       path: '/',
       component: index,
       children: [
-        // {
-        //   path: '',
-        //   component: manger
-        // },
+        {
+          path: '/article',
+          component: article
+        },
         {
           path: '',
           component: toutiao
@@ -24,6 +27,14 @@ export default new Router({
         {
           path: '/recommend',
           component: recommend
+        },
+        {
+          path: '/insubscripe',
+          component: insubscripe
+        },
+        {
+          path: '/search',
+          component: search
         }
        ]
     },

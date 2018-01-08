@@ -202,14 +202,11 @@ export default {
   margin-right:22px;
   border-right: 1px solid #d7d7d7;
 }
-.
-.leftcontent{
+
+.left .leftcontent{
   width: 100%;
-  margin-top: 10px;
-  border-radius: 3px;
-  margin-bottom: 10px;
+  font-size: 14px;
   border: 1px solid #ebebeb;
-  box-shadow: 0 0 8px 0 rgba(232,237,250,.6), 0 2px 4px 0 rgba(232,237,250,.5);
 }
 .out{
   position: relative;

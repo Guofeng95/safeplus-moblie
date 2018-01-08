@@ -1,8 +1,11 @@
 <template>
   <div class="toutiao">
-      <div class="newcontent" v-show="newcontentis"@click="newcon">
-        有新的文章发布啦,刷新一下,查看新内容！
-      </div>
+       <h4 class="top">{{subscripe}}<span>{{'共'+tota+'篇文章'}}</span></h4>
+       <div class="dybtnd">
+          <el-button class="dybtn" type="success" @click="subscr('new')" v-if="subis">我要订阅</el-button>
+          <el-button class="dybtn" type="success" @click="subscr('old')" v-if="subis==false">已订阅</el-button>
+       </div>
+       
       <div class="news" v-for="(item,index) in indexdata" :key="index" >
         <div class="newsone" v-if="item.form==1">
           <h4  @click="article(item.id)" >{{item.title}}</h4>
@@ -56,6 +59,9 @@ export default {
       baseurl:Url.baseurl,
       newcontentis:false,
       indexdata:[],
+      tota:0,
+      subscripe:'',
+      subis:true,
     }
   },
   beforeDestroy: function () {
@@ -64,26 +70,9 @@ export default {
   },
    mounted(){
     var vm=this;
+    this.subscripe=sessionStorage.getItem("subscripe");
     this.indexdata=[];
     this.indexdataget(7,"first");
-    this.timer=setInterval(function(){
-          var date={};
-          date.notice=vm.nextnotice;
-          axios({
-              method:'post',
-              data:qs.stringify(date),
-              url:vm.baseurl + '/article/news_check_new',
-             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-          }).then(function(response){
-            if(response.data.status==1){
-              vm.newcontentis=true;
-            }else{
-              vm.newcontentis=false;
-            }
-          })
-    },10000);
      
      function getScrollTop(){
       　　var scrollTop = 0, bodyScrollTop = 0, documentScrollTop = 0;
@@ -140,6 +129,7 @@ export default {
         var vm=this;
         var date={};
           date.limit=limit;
+          date.keyword=this.subscripe;
           date.notice=this.notice;
           axios({
               method:'post',
@@ -153,11 +143,17 @@ export default {
                   if(times=="first"){
                     vm.nextnotice=response.data.next_notice;
                   }
+                  vm.tota=response.data.total_count;
                   vm.notice=response.data.prev_notice;
                   if(limit==response.data.data.length){
                     vm.conbotis=true;
                   }else{
                     vm.conbotis=false;
+                  }
+                  if(response.data.subscribed==0){
+                    vm.subis=true;
+                  }else{
+                     vm.subis=false;
                   }
                   response.data.data.forEach( function(element, index) {
                     var obj={};
@@ -187,12 +183,70 @@ export default {
         this.indexdataget(7,"first");
         this.newcontentis=false;
       },
+      subscr(name){
+        var vm=this;
+        var date={};
+        date.keyword=this.subscripe;
+
+        if(name=="new"){
+           date.do_cancel=0;
+        }else{
+          date.do_cancel=1;
+        }
+        axios({
+              method:'post',
+              data:qs.stringify(date),
+              url:vm.baseurl + '/article/news_subscribe_keyword',
+             headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+          }).then(function(response){
+              if(response.data.status==1){
+                vm.subis=!vm.subis;
+              }else{
+                vm.$message.warning(response.data.msg);
+              }
+
+          })
+
+      },
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.dybtnd{
+  float: right;
+  margin-right: 10px;
+  font-size: 14px;
+  margin-top: 10px;
+}
+.dybtn{
+  width: 100px;
+}
+.top{
+  padding-left: 10px;
+  font-size: 30px;
+  padding: 4px 0;
+  width: 60%;
+  height: 50px;
+  float: left;
+  margin-left: 10px;
+  position: relative;
+}
+.top span{
+  padding:0 10px;
+  display: inline-block;
+  height: 26px;
+  font-size: 16px;
+  color: #a1a1a1;
+  border:1px solid #d7d7d7;
+  text-align: center;
+  border-radius: 4px;
+  line-height: 26px;
+  margin-left: 20px;
+}
   .toutiao{
     width: 100vw;
     width: 100%;

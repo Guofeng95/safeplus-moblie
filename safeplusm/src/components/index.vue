@@ -1,22 +1,33 @@
 <template>
   <div class="index">
-  	<div class="itop">
-  		<img style="height:29px;width:170px;top:8px;left:4px; " src="/static/img/logo.png">
-  		<a href="#/login" v-if="loginis==false">
-        <img style="height:28px;width:28px;top:8px;right:14px; " src="/static/img/login.png">
-      </a>
-      <a href="#" v-else @click="setout">
-        <img style="height:28px;width:28px;top:8px;right:14px; border-radius: 100%;" :src="baseurl+userurl">
-      </a>
-      <!-- <span v-if="loginis" style="height:28px;width:28px;top:8px;right:14px;" @click="removein">退出</span> -->
-      <!-- <span v-else style="height:28px;width:28px;top:8px;right:14px;"><a href="#/login">登录</a></span> -->
-  		<img style="height:28px;width:28px;top:8px;right:64px; " src="/static/img/search.png">
-  	</div>
-  	<div class="nav">
-  		<a href="#/recommend" style="width:40px;" id="recommend">推 荐</a>
-  		<a href="#/" style="color: #71b34f;" id="toutiao">安全头条</a>
-  		<a href="#">用户中心</a>
-  	</div>
+  <div class="totop">
+    	<div class="itop">
+    		<img style="height:29px;width:170px;top:8px;left:4px; " src="/static/img/logo.png">
+        <div class="search">
+          <el-input 
+            id="searchinput"
+            placeholder="搜索安全信息"
+            suffix-icon="el-icon-search"
+            v-model="search">
+          </el-input>
+          <span class="span1" @click="gosearch"></span>
+        </div>
+    		<a href="#/login" v-if="loginis==false">
+          <img style="height:28px;width:28px;top:8px;right:14px; " src="/static/img/login.png">
+        </a>
+        <a v-else @click="setout">
+          <img style="height:28px;width:28px;top:8px;right:14px; border-radius: 100%;" :src="baseurl+userurl">
+        </a>
+        <!-- <span v-if="loginis" style="height:28px;width:28px;top:8px;right:14px;" @click="removein">退出</span> -->
+        <!-- <span v-else style="height:28px;width:28px;top:8px;right:14px;"><a href="#/login">登录</a></span> -->
+    	</div>
+    	<div class="nav">
+    		<a href="#/recommend" style="width:40px;" @click="light('recommend')" id="recommend">推 荐</a>
+    		<a href="#/" style="color: #71b34f;" @click="light('toutiao')" id="toutiao">安全头条</a>
+    		<a >用户中心</a>
+    	</div>
+    </div>
+    <div class="matop"></div>
     <router-view/>
   </div>
 </template>
@@ -38,6 +49,7 @@ export default {
   data () {
     return {
       baseurl:Url.baseurl,
+      search: '',
     }
   },
   mounted(){
@@ -63,6 +75,14 @@ export default {
       })
   },
   methods:{
+    light(id){
+      var id1 = document.getElementById('recommend');
+      id1.style.color="#333";
+      var id2 = document.getElementById('toutiao');
+      id2.style.color="#333";
+      var id3 = document.getElementById(id);
+      id3.style.color="#71b34f";
+    },
     setout(){
       var con=confirm("是否退出登录？")
       if(con){
@@ -88,6 +108,10 @@ export default {
           });
         
       },
+      gosearch(){
+        sessionStorage.setItem("search",this.search)
+        window.location.href="#/search?"+this.search;
+      },
   }
 
 }
@@ -95,9 +119,20 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped="scoped">
+
+  .matop{
+    margin-top: 90px;
+  }
+  .totop{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 4;
+  }
 	.itop{
 		height: 45px;
 		width: 100vw;
+    background: #fff;
 		border-bottom: 1px solid #eeeeee;
 		font-size: 14px;
 	}
@@ -122,7 +157,20 @@ export default {
 		width: 64px;
 		margin-top: 12px;
 	}
-	/*.nav a:hover{
-		
-	}*/
+	.search{
+  width: 142px;
+  height: 24px;
+  top:3px;
+  right:50px;
+  position: absolute;
+}
+.search .span1{
+  position: absolute;
+  display: block;
+  width: 30px;
+  height: 30px;
+  right: 0;
+  top: 0;
+}
+
 </style>
