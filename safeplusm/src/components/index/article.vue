@@ -70,8 +70,8 @@
     </div>
     <h4 class="hf" id="tagh4" style="clear:both;">相关文章</h4>
     <div class="articlecot">
-      <div class="left" id="tagleft" v-if="tagchangedata.length>0" @click="narticle(item.id)">
-        <p v-for="(item,index) in tagchangedata" > 
+      <div class="left" id="tagleft" v-if="tagchangedata.length>0" >
+        <p v-for="(item,index) in tagchangedata" @click="narticle(item.id)" > 
          {{'('+(index+1)+')'+item.title}}
         </p>
       </div>
