@@ -70,7 +70,7 @@
     </div>
     <h4 class="hf" id="tagh4" style="clear:both;">相关文章</h4>
     <div class="articlecot">
-      <div class="left" id="tagleft" v-if="tagchangedata.length>0">
+      <div class="left" id="tagleft" v-if="tagchangedata.length>0" @click="narticle(item.id)">
         <p v-for="(item,index) in tagchangedata" > 
          {{'('+(index+1)+')'+item.title}}
         </p>
@@ -197,8 +197,19 @@ export default {
       comid:''
     }
   },
+  watch: {
+     "$route": "reset"
+      
+  },
   mounted(){
+    this.reset();
+  },
+  methods:{
+    reset(){
     var vm=this;
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+    this.tagchangedata=[];
     var comis=window.location.href.indexOf("comid");
     if(comis>-1){
       var arr1=window.location.href.split('?')[1].split("&");
@@ -250,10 +261,10 @@ export default {
           vm.nowbig=obj.images[0];
           vm.scnum=response.data.extra_data.mark_count;
           if(response.data.extra_data.liked==1){
-          	vm.likeis=false;
+            vm.likeis=false;
           }
           if(response.data.extra_data.marked==1){
-          	vm.markis=false;
+            vm.markis=false;
           }
           vm.tagdata=response.data.keywords;
           vm.artauthor=response.data.author_data.name;
@@ -264,8 +275,10 @@ export default {
         }
     });
     this.comment()
-  },
-  methods:{
+    },
+    narticle(id){
+        window.location.href='#/article?topid='+id;
+      },
     tagdatanow(name){
       var vm=this;
       var date={};
@@ -362,7 +375,12 @@ export default {
 		        	vm.zannum=vm.zannum+1;
 		   	        vm.likeis=true;
 		        }else{
-		          alert(response.data.msg)
+              if(vm.$store.state.loginis){
+                 alert(response.data.msg)
+              }else{
+                alert("您还未登录哦！")
+              }
+		         
 		        }
 			   });
    		}else{
@@ -397,7 +415,11 @@ export default {
         	}
         	
         }else{
-          alert(response.data.msg)
+          if(vm.$store.state.loginis){
+             alert(response.data.msg)
+          }else{
+            alert("您还未登录哦！")
+          }
         }
 	   });
   	},
@@ -440,7 +462,7 @@ export default {
       var vm=this;
       var date={};
       date.news_id=this.id;
-      if(ab="new"){
+      if(ab=="new"){
       	this.comdata=[];
       	this.offset=0;
       }
