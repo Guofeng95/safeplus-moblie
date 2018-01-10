@@ -21,7 +21,7 @@ export default new Router({
           component: article
         },
         {
-          path: '',
+          path: '/',
           component: toutiao
         },
         {

@@ -46,6 +46,13 @@
       passwordis:false,
     }
   },
+  beforeRouteEnter (to, from, next){
+    if(from.path=="/article"){
+      console.log(from)
+      sessionStorage.setItem("urlgo",from.fullPath);
+    }
+    next();
+  },
   methods:{
     sublogin(){
       var vm=this;
@@ -72,7 +79,15 @@
                   // }
                 vm.$store.state.userurl=response.data.avatar;
                 vm.$store.state.loginis=true;
-                window.location.href="#/"
+                var urlgo=sessionStorage.getItem('urlgo');
+                if(urlgo){
+                  window.location.href="#"+urlgo;
+                  sessionStorage.removeItem('urlgo');
+                }else{
+                  window.location.href="#/";
+                }
+                
+
               }else{
                 alert("账号密码错误");
               }

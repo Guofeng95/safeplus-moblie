@@ -103,8 +103,7 @@
         @change="compleng">
       </el-input>
       <span class="num">{{conleng+"/300"}}</span>
-      <span class="tbtn" v-if="loginis" @click="newcomment">发表评论</span>
-      <span class="tbtn" v-else style="background:#ccc;">发表评论</span>
+      <span class="tbtn" @click="newcomment">发表评论</span>
       <!-- <span class="topt" @click="gotop"><img src="/static/img/atopgo.png"></span> -->
      </div>
     <div class="comment">
@@ -428,27 +427,30 @@ export default {
       var date={};
       date.news_id=this.id;
       date.content=this.textarea;
-      if(this.textarea!="" && this.textarea.length<=300){
-      		axios({
-	        method:'post',
-	        data:qs.stringify(date),
-	        url:vm.baseurl + '/article/news_new_comment',
-	       headers: {
-	          'Content-Type': 'application/x-www-form-urlencoded'
-	      }
-	    }).then(function(response){
-	        if(response.data.status==1){
-	        	alert("发送成功！")
-	   	        vm.textarea='';
-	   	        vm.comment("new");
-	        }else{
-	          alert(response.data.msg)
-	        }
-	    });
+      if(vm.$store.state.loginis){
+        if(this.textarea!="" && this.textarea.length<=300){
+        		axios({
+  	        method:'post',
+  	        data:qs.stringify(date),
+  	        url:vm.baseurl + '/article/news_new_comment',
+  	       headers: {
+  	          'Content-Type': 'application/x-www-form-urlencoded'
+  	      }
+  	    }).then(function(response){
+  	        if(response.data.status==1){
+  	        	alert("发送成功！")
+  	   	        vm.textarea='';
+  	   	        vm.comment("new");
+  	        }else{
+  	          alert(response.data.msg)
+  	        }
+  	    });
+        }else{
+        		alert("请输入1-300个字！")
+        }
       }else{
-      		alert("请输入1-300个字！")
+         alert("您还未登录哦！")
       }
-      
   	},
     compleng(){
       console.log(this.textarea)
