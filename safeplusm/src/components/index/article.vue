@@ -113,7 +113,7 @@
         
         <p class="comcontent">{{item.content}}</p>
       </div>
-     <el-button class="combtn" type="success" v-show="combtnis" @click="comment" plain :loading="false">查看更多评论</el-button>
+     <el-button class="combtn" type="success" v-show="combtnis" @click="comment"  :loading="false">查看更多评论</el-button>
     </div>
     <div class="bigimg" v-show="bigimgis">
       <div>
@@ -482,7 +482,7 @@ export default {
 	        	
 	          	var arr = response.data.data;
 	          	if(arr.length<10){
-	          		vm.combtnis=false;
+                vm.combtnis=false;
 	          	}else{
 	          		vm.combtnis=true;
 	          		vm.offset=vm.offset+1;
@@ -758,7 +758,7 @@ export default {
 }
 .combtn{
   margin:30px auto;
-  margin-left: 400px;
+  display: block;
 }
 .sumary h4{
   font-size: 24px;

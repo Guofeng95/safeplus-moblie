@@ -1,26 +1,6 @@
 <template>
   <div class="index">
   <div class="totop">
-    	<div class="itop">
-    		<img style="height:29px;width:170px;top:8px;left:4px; " src="/static/img/logo.png">
-        <div class="search">
-          <el-input 
-            id="searchinput"
-            placeholder="搜索安全信息"
-            suffix-icon="el-icon-search"
-            v-model="search">
-          </el-input>
-          <span class="span1" @click="gosearch"></span>
-        </div>
-    		<a href="#/login" v-if="loginis==false">
-          <img style="height:28px;width:28px;top:8px;right:14px; " src="/static/img/login.png">
-        </a>
-        <a v-else @click="setout">
-          <img style="height:28px;width:28px;top:8px;right:14px; border-radius: 100%;" :src="baseurl+userurl">
-        </a>
-        <!-- <span v-if="loginis" style="height:28px;width:28px;top:8px;right:14px;" @click="removein">退出</span> -->
-        <!-- <span v-else style="height:28px;width:28px;top:8px;right:14px;"><a href="#/login">登录</a></span> -->
-    	</div>
     	<div class="nav">
     		<a href="#/recommend" style="width:40px;" @click="light('recommend')" id="recommend">推 荐</a>
     		<a href="#/" style="color: #71b34f;" @click="light('toutiao')" id="toutiao">安全头条</a>
@@ -83,35 +63,7 @@ export default {
       var id3 = document.getElementById(id);
       id3.style.color="#71b34f";
     },
-    setout(){
-      var con=confirm("是否退出登录？")
-      if(con){
-        this.removein();
-      }
-    },
-    removein(){
-        var vm=this;
-        axios({
-              method:'post',
-              url:vm.baseurl + '/user/logout',
-             headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-          }).then(function(response){
-              if(response.data.status==1){
-                
-                console.log(response.data)
-                vm.$store.state.loginis=false;
-              }else{
-                alert(response.data.msg);
-              }
-          });
-        
-      },
-      gosearch(){
-        sessionStorage.setItem("search",this.search)
-        window.location.href="#/search?"+this.search;
-      },
+    
   }
 
 }
@@ -125,29 +77,14 @@ export default {
   }
   .totop{
     position: fixed;
-    top: 0;
+    top: 46px;
     left: 0;
     z-index: 4;
   }
-	.itop{
-		height: 45px;
-		width: 100vw;
-    background: #fff;
-		border-bottom: 1px solid #eeeeee;
-		font-size: 14px;
-	}
-	.itop img{
-		display: block;
-		position: absolute;
-	}
-  .itop span{
-    display: block;
-    position: absolute;
-    line-height: 28px;
-    color: red;
-  }
+	
 	.nav{
 		height: 45px;
+    width: 100vw;
 		font-size: 16px;
 		background: #f5f5f5;
 		display: flex;
