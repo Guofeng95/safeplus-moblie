@@ -105,6 +105,10 @@
 
 </script>
 <style scoped="scoped">
+.aside1{
+  position: relative;
+  z-index: 1000;
+}
 .gobackbtn{
   display: block;
   float: right;

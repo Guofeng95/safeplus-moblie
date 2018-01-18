@@ -2,7 +2,9 @@
   <div id="app">
     <div class="totop">
       <div class="itop">
-        <img style="height:auto;width:36vw;top:12px;left:6px; " src="/static/img/logo.png">
+        <img class="img"  src="/static/img/logo.gif">
+        <a class="logofont">安全加</a>
+        <a class="logobeat">beta</a>
         <div class="search">
           <el-input 
             id="searchinput"
@@ -16,7 +18,7 @@
           <img style="height:28px;width:28px;top:8px;right:14px; " src="/static/img/login.png">
         </a>
         <a v-else @click="setout">
-          <img style="height:28px;width:28px;top:8px;right:14px; border-radius: 100%;" :src="baseurl+userurl">
+          <img style="height:28px;width:28px;top:8px;right:14px; border-radius: 100%;" :src="userurl">
         </a>
       </div> 
     </div>
@@ -101,6 +103,8 @@ export default {
 </script>
 
 <style>
+
+ 
   #searchinput{
     background: #f2f2f2;
     height: 30px;
@@ -122,6 +126,12 @@ export default {
   .itop img{
     display: block;
     position: absolute;
+  }
+  .itop .img{
+    height:auto;
+    width:36px;
+    top:12px;
+    left:2px; 
   }
   .itop span{
     display: block;
@@ -155,5 +165,25 @@ export default {
   height: 30px;
   right: 0;
   top: 0;
+}
+.logofont{
+  font-size: 16px;
+  color: #6fba2c;
+  font-weight: bold;
+  padding-top: 20px;
+  margin-left:41px; 
+  position: relative;
+  top: 10px;
+}
+.logobeat{
+  font-size: 14px;
+  font-weight: bold;
+  position: relative;
+  top: 10px;
+}
+@media screen and (min-width: 768px) {
+  .itop .img{
+    height:auto;width:36px;top:12px;left:2px; 
+  }
 }
 </style>

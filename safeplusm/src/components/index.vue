@@ -4,7 +4,7 @@
     	<div class="nav">
     		<a href="#/recommend" style="width:40px;" @click="light('recommend')" id="recommend">推 荐</a>
     		<a href="#/" style="color: #71b34f;" @click="light('toutiao')" id="toutiao">安全头条</a>
-    		<a href="http://toutiao.secjia.com:8888/#/usercenter">用户中心</a>
+    		<a href="http://top.secjia.com/#/usercenter">用户中心</a>
     	</div>
     </div>
     <div class="matop"></div>

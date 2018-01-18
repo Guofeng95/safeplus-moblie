@@ -196,6 +196,10 @@
   text-align: center;
   border: 1px solid #d7d7d7;
 }
+.aside1{
+  position: relative;
+  z-index: 1000;
+}
 .aside1 .inputcheck{
   position: relative;
   margin-bottom: 56px;
