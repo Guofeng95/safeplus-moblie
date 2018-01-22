@@ -108,7 +108,7 @@
      </div>
     <div class="comment">
       <div class="comt" v-for="(item,index) in comdata" :id="'c'+item.id">
-        <img :src="baseurl+item.url">
+        <img :src="item.url">
         <span class="comname">{{item.name}}<span class="comtime">{{"·"+item.time}}</span></span>
         
         <p class="comcontent">{{item.content}}</p>

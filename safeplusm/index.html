@@ -16,7 +16,13 @@
         var flag = IsPC();
          var href=window.location.href;
          if(flag){
-            window.location.href=href.replace(/m.secjia.com/,"toutiao.secjia.com")
+            if(href.indexOf('m.secjia.com/#/article')>-1){
+              window.location.href=href.replace('m.secjia.com/#/article',"toutiao.secjia.com/static/article/article.html")
+            }else{
+              window.location.href=href.replace('m.secjia.com',"toutiao.secjia.com")
+            }
+            
+            
          }
       }
       function IsPC() {
