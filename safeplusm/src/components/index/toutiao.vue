@@ -244,7 +244,7 @@ export default {
 .newsone img{
   margin:0 auto;
   display: block;
-  width: 90%;
+  width: 60%;
   height: auto;
   cursor: pointer;
 }

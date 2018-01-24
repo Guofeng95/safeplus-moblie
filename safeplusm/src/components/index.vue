@@ -1,13 +1,13 @@
 <template>
-  <div class="index">
-  <div class="totop">
+  <div class="index" >
+  <div class="totop" id="topindex">
     	<div class="nav">
     		<a href="#/recommend" style="width:40px;" @click="light('recommend')" id="recommend">推 荐</a>
     		<a href="#/" style="color: #71b34f;" @click="light('toutiao')" id="toutiao">安全头条</a>
-    		<a href="http://top.secjia.com/#/usercenter">用户中心</a>
+    		<a @click="gowhere">用户中心</a>
     	</div>
     </div>
-    <div class="matop"></div>
+    <div class="matop"id="topno"></div>
     <router-view/>
   </div>
 </template>
@@ -55,6 +55,15 @@ export default {
       })
   },
   methods:{
+    gowhere(){
+
+      if(this.$store.state.loginis){
+        window.location.href="http://top.secjia.com/#/usercenter"
+      }else{
+         alert("您还未登录哦，点击右上角图标登录哦！")
+      }
+      
+    },
     light(id){
       var id1 = document.getElementById('recommend');
       id1.style.color="#333";

@@ -135,6 +135,12 @@ export default {
                   }else{
                     vm.indexdata=[];
                   }
+                  if(response.data.data.length<10){
+
+                    vm.conbotis=false;
+                  }else{
+                    vm.conbotis=true;
+                  }
                   response.data.data.forEach( function(element, index) {
                     var obj={};
                     obj.title=element.title;
@@ -147,6 +153,7 @@ export default {
                   });
               }else{
                 vm.indexdata=[];
+                vm.conbotis=false;
                 vm.message=response.data.msg;
               }
           });

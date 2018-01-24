@@ -1,38 +1,58 @@
 <template>
   <div id="app">
-    <div class="totop">
-      <div class="itop">
-        <img class="img"  src="/static/img/logo.gif">
-        <a class="logofont">安全加</a>
-        <a class="logobeat">beta</a>
-        <div class="search">
-          <el-input 
-            id="searchinput"
-            placeholder="搜索安全信息"
-            suffix-icon="el-icon-search"
-            v-model="search">
-          </el-input>
-          <span class="span1" @click="gosearch"></span>
-        </div>
-        <a href="#/login" v-if="loginis==false">
+        <drawer :show="drawerShow" 
+          :pos="pos" 
+          :tran="tran"
+          @change-show="changeDrawerShow"
+          @on-hide="onHide"
+          @on-show="onShow">
+          <div class="layout" slot="drawer" >
+           <div @click="onHide" v-if='loginis==false'><a href="#/login" style="margin-right:10px;">登录</a> | <a href="#/reset" style="margin-left:10px;">注册</a></div>  
+           <div v-else><img style="height:28px;width:28px;border-radius: 100%;display:block;padding-top:6px;margin:0 auto;" :src="userurl "></div>
+           <div @click="onHide"><a href="#/">安全头条</a></div>
+           <div @click="onHide"><a href="#/recommend">推荐</a></div>
+           <div @click="onHide" v-if='loginis'><a href="http://top.secjia.com/#/usercenter">个人中心</a></div>
+           <div @click="setout" v-if='loginis'><a >退出登录</a></div>
+          </div>
+          <div class="totop" id="topall">
+            <div class="itop">
+              <img class="img"  src="/static/img/logo.gif" @click="indexgo">
+              <a class="logofont" href="#/">安全加</a>
+              <a class="logobeat" href="#/">beta</a>
+                <div class="search">
+                  <el-input 
+                    id="searchinput"
+                    placeholder="搜索安全信息"
+                    suffix-icon="el-icon-search"
+                    v-model="search"
+                    @change="keysearch">
+                  </el-input>
+                  <span class="span1" @click="gosearch"></span>
+                </div>
+                <a v-on:click="drawerToggle">
+                  <img src="/static/img/topnav.png"  style="top:8px;right:8px;">
+                </a>
+             </div> 
+          </div>
+          <router-view/>
+          
+        </drawer>
+        <!-- <a href="#/login" v-if="loginis==false">
           <img style="height:28px;width:28px;top:8px;right:14px; " src="/static/img/login.png">
-        </a>
-        <a v-else @click="setout">
-          <img style="height:28px;width:28px;top:8px;right:14px; border-radius: 100%;" :src="userurl">
-        </a>
-      </div> 
-    </div>
-    <router-view/>
+        </a>-->
+     
   </div>
 </template>
 
 <script>
+import Drawer from '@/components/drawer'
 import {mapGetters} from "vuex"
 import axios from 'axios'
 import qs from 'qs'
 import * as Url from '@/components/url.js'
 export default {
   name: 'app',
+  components: { Drawer },
   computed:{
     ...mapGetters({
       loginis:'loginnow',
@@ -44,6 +64,9 @@ export default {
     return {
       search: '',
       baseurl:Url.baseurl,
+      pos: 'right',
+      tran: 'overlay',
+      drawerShow: false,  
     }
   },
   mounted(){
@@ -69,10 +92,38 @@ export default {
       })
   },
    methods:{
+     drawerToggle() {
+       this.drawerShow=!this.drawerShow
+     },
+     onHide() {
+      this.drawerShow=false;
+       //console.log('hide');
+     },
+     changeDrawerShow(state) {
+      this.drawerShow=state;
+      //console.log('drawer was changed from components');
+    },
+    onShow() {
+     //console.log('show');
+   },
+    keysearch(){
+      var vm=this;
+      var id=document.querySelector(".search input");
+      //console.log(id)
+      id.onkeydown=function(e){
+        if(e.keyCode==13){
+          vm.gosearch();
+        }
+      }
+    },
+    indexgo(){
+      window.location.href="#/"
+    },
     setout(){
       var con=confirm("是否退出登录？")
       if(con){
         this.removein();
+        this.onHide();
       }
     },
     removein(){
@@ -103,8 +154,43 @@ export default {
 </script>
 
 <style>
+html {
+    
+  }
+  /*body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }*/
+  #app {
+    height: 100vh;
+    width: 100vw;
+    /*max-width: 600px;*/
+    font-family: Source Sans Pro, Helvetica, sans-serif;
+    /*background-color: #eee*/
+  }
+  .layout{
+    width: 160px;
+    height: 100%;
+    background: #3c3c44;
+    color: #fff;
+    font-size: 14px;
+  }
+  .layout div{
+    width: 160px;
+    height: 40px;
+    text-align: center;
+    color: #fff;
+    line-height: 40px;
+    border-bottom: 1px dashed #666;
+  }
+  .layout div:hover{
 
- 
+  }
+  .layout a{
+    color: #fff;
+  }
   #searchinput{
     background: #f2f2f2;
     height: 30px;

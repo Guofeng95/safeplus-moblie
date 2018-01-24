@@ -1,7 +1,7 @@
 <template>
   <div class="article">
   	<div class="top">
-  		<a>首页></a>
+  		<a href="#/">首页></a>
   		<a href="#/">{{secondtit+'>'}}</a>
   		<a v-if="thirdtit">{{thirdtit}}</a>
   	</div>
@@ -36,6 +36,8 @@
       </div>
   	</div>
   	<div class="bottom">
+      <p class="pagr" v-if="lasturl!=0"><a @click="narticle(lasturl)">上一篇：{{lasttitle}}</a></p>
+      <p class="pagr" v-if="nexturl!=0"><a @click="narticle(nexturl)">下一篇：{{nexttitle}}</a></p>
       <p style="margin-top:10px; color:#a1a1a1;">*文章为作者独立观点，不代表安全加立场</p>
       <div class="downcontent">
         <p>本文由：安全加发布，版权归属于原作者。 如果转载，请注明出处及本文链接： </p>
@@ -102,7 +104,7 @@
         class="text"
         @change="compleng">
       </el-input>
-      <span class="num">{{conleng+"/300"}}</span>
+      <span class="num"></span>
       <span class="tbtn" @click="newcomment">发表评论</span>
       <!-- <span class="topt" @click="gotop"><img src="/static/img/atopgo.png"></span> -->
      </div>
@@ -119,7 +121,7 @@
       <div>
         <img class="imges" :src="nowbig">
         <span @click="bigchange('left')"><img style="width:30px;" src="/static/img/imgleft.png"></span>
-        <span style="left:290px;" @click="bigchange('right')"><img img style="width:30px;" src="/static/img/imgright.png"></span>
+        <span style="left:80vw;" @click="bigchange('right')"><img img style="width:30px;" src="/static/img/imgright.png"></span>
         <span class="imgno"  @click="hdpout('no')"><img src="/static/img/imgno.png"></span>
       </div>
     </div>
@@ -142,6 +144,11 @@ export default {
   },
   data () {
     return {
+
+      lasturl:"",
+      lasttitle:'',
+      nexttitle:'',
+      nexturl:'',
       artauthorurl:'/static/img/userurl.png',
       artauthornum:1,
       markis:true,
@@ -201,9 +208,37 @@ export default {
       
   },
   mounted(){
+    this.display("none")
     this.reset();
+    var vm=this;
+    function getScrollTop(){
+      　　var scrollTop = 0, bodyScrollTop = 0, documentScrollTop = 0;
+      　　if(document.body){
+      　　　　bodyScrollTop = document.body.scrollTop;
+      　　}
+      　　if(document.documentElement){
+      　　　　documentScrollTop = document.documentElement.scrollTop;
+      　　}
+      　　scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
+      　　return scrollTop;
+      }
+
+      window.onscroll=function(){
+        var sco=getScrollTop();
+        if(sco==0){
+          vm.display("block");
+        }
+      }
   },
   methods:{
+    display(num){
+      var id =document.getElementById("topall");
+      var id1 =document.getElementById("topindex");
+      var id2 =document.getElementById("topno");
+      id.style.display = num 
+      id1.style.display = num
+      id2.style.display = num
+    },
     reset(){
     var vm=this;
     document.body.scrollTop = 0;
@@ -269,6 +304,10 @@ export default {
           vm.artauthor=response.data.author_data.name;
           vm.artauthornum=response.data.author_data.news_count;
           vm.artauthorurl=response.data.author_data.url;
+          vm.lasturl=response.data.related_data.older_news.id;
+          vm.lasttitle=response.data.related_data.older_news.title;
+          vm.nexturl=response.data.related_data.newer_news.id;
+          vm.nexttitle=response.data.related_data.newer_news.title;
         }else{
           alert(response.data.msg)
         }
@@ -358,10 +397,15 @@ export default {
   	},
   	like(ab){
   		var vm=this;
-  		if(ab!="ok"){
+  		//if(ab!="ok"){
   			  
-		      var date={};
-		      date.news_id=this.id;
+	      var date={};
+        if(ab=="ok"){
+          date.do_cancel=1
+        }else{
+          date.do_cancel=0
+        }
+		    date.news_id=this.id;
 			  axios({
 		        method:'post',
 		        data:qs.stringify(date),
@@ -371,20 +415,26 @@ export default {
 		        }
 		   		 }).then(function(response){
 		        if(response.data.status==1){
-		        	vm.zannum=vm.zannum+1;
-		   	        vm.likeis=true;
+              if(ab=="ok"){
+                vm.zannum=vm.zannum-1;
+                vm.likeis=true;
+              }else{
+                vm.zannum=vm.zannum+1;
+                vm.likeis=false;
+              }
+		        	
 		        }else{
               if(vm.$store.state.loginis){
                  alert(response.data.msg)
               }else{
-                alert("您还未登录哦！")
+                alert("您还未登录哦，点击右上角图标登录哦！")
               }
 		         
 		        }
 			   });
-   		}else{
-   			alert("您已经点赞了哦！")
-   		}
+   		// }else{
+   		// 	alert("您已经点赞了哦！")
+   		// }
   	  
   	},
   	mark(ab){
@@ -417,7 +467,7 @@ export default {
           if(vm.$store.state.loginis){
              alert(response.data.msg)
           }else{
-            alert("您还未登录哦！")
+            alert("您还未登录哦，点击右上角图标登录哦！")
           }
         }
 	   });
@@ -449,7 +499,7 @@ export default {
         		alert("请输入1-300个字！")
         }
       }else{
-         alert("您还未登录哦！")
+         alert("您还未登录哦，点击右上角图标登录哦！")
       }
   	},
     compleng(){
@@ -793,6 +843,7 @@ export default {
   top: 0;
   z-index: 100;
   left: 0;
+  overflow: auto;
 }
 .bigimg div{
   width: 90%;
@@ -825,8 +876,17 @@ export default {
 	top: -50px;
 	left: -20px;
 	width: 30px;
-   height: 30px;
-   padding-top: 10px;
-   padding-left: 10px;
+  height: 30px;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+.pagr{
+  margin-top: 20px;
+  margin-left: 30px;
+  cursor: pointer;
+}
+.pagr a{
+  text-decoration: none;
+  color: #c3864d;
 }
 </style>

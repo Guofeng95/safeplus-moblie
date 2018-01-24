@@ -130,7 +130,7 @@
               }).then(function(response){
                   if(response.data.status==1){
                     alert('注册成功');
-                    window.location.href="#/login"
+                    window.location.href="#/"
                   }else{
                     alert(response.data.msg);
                   }
