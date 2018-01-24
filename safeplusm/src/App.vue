@@ -93,14 +93,32 @@ export default {
   },
    methods:{
      drawerToggle() {
-       this.drawerShow=!this.drawerShow
+       this.drawerShow=!this.drawerShow;
+       var id=document.getElementById("vue-all")
+       if(this.drawerShow==false){
+        id.style.overflow = 'auto';
+        console.log("a")
+       }else{
+        console.log("o")
+        id.style.overflow = 'hidden';
+       }
      },
      onHide() {
       this.drawerShow=false;
+       var id=document.getElementById("vue-all");
+       id.style.overflow = 'auto';
        //console.log('hide');
      },
      changeDrawerShow(state) {
       this.drawerShow=state;
+      var id=document.getElementById("vue-all")
+      if(this.drawerShow==false){
+        id.style.overflow = 'auto';
+        //console.log("a")
+       }else{
+        //console.log("o")
+        id.style.overflow = 'hidden';
+       }
       //console.log('drawer was changed from components');
     },
     onShow() {
@@ -117,6 +135,7 @@ export default {
       }
     },
     indexgo(){
+      alert(1)
       window.location.href="#/"
     },
     setout(){

@@ -207,6 +207,9 @@ export default {
      "$route": "reset"
       
   },
+  beforeDestroy: function () {
+    this.display("block")
+  },
   mounted(){
     this.display("none")
     this.reset();
@@ -386,12 +389,15 @@ export default {
 
   	},
   	hdpout(no){
+       var id=document.getElementById("vue-all");
   		if(no=="no"){
   			this.bigimgis=false;
   			this.nowbignum=0;
   			this.nowbig=this.hdpurl[0];
+         id.style.overflow = 'auto';
   		}else{
   			this.bigimgis=true;
+        id.style.overflow = 'hidden';
   		}
   		
   	},
@@ -843,7 +849,6 @@ export default {
   top: 0;
   z-index: 100;
   left: 0;
-  overflow: auto;
 }
 .bigimg div{
   width: 90%;
@@ -888,5 +893,22 @@ export default {
 .pagr a{
   text-decoration: none;
   color: #c3864d;
+}
+@media screen and (orientation:landscape) {
+  .bigimg div{
+    width: auto;
+    height: 80%;
+    position: relative;
+    border:none;
+    border-radius: 0px;
+    top: 15%;
+    margin:0 auto;
+  }
+  .bigimg .imges{
+    display: block;
+    height: 100%;
+    width: auto;
+    margin: 0 auto;
+  }
 }
 </style>

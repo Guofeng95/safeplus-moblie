@@ -65,7 +65,7 @@
 </style>
 
 <template>
-  <div class="vue-drawer">
+  <div class="vue-drawer" >
     <div :style="{'transform': 'translate3d('+translateX+'px,0,0)'}"
     class="main">
     <slot></slot>
