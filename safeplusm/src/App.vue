@@ -12,7 +12,7 @@
            <div @click="onHide"><a href="#/">安全头条</a></div>
            <div @click="onHide"><a href="#/recommend">推荐</a></div>
            <div @click="onHide" v-if='loginis'><a href="http://top.secjia.com/#/usercenter">个人中心</a></div>
-           <div @click="setout" v-if='loginis'><a >退出登录</a></div>
+           <div @click="setout" v-if='loginis'><a style="cursor:pointer" >退出登录</a></div>
           </div>
           <div class="totop" id="topall">
             <div class="itop">
@@ -135,7 +135,6 @@ export default {
       }
     },
     indexgo(){
-      alert(1)
       window.location.href="#/"
     },
     setout(){

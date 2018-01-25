@@ -3,32 +3,54 @@
       <div class="newcontent" v-show="newcontentis"@click="newcon">
         有新的文章发布啦,刷新一下,查看新内容！
       </div>
-      <div class="news" v-for="(item,index) in indexdata" :key="index" >
+      <div class="news" v-for="(item,index) in indexdata" :key="index" @click="article(item.id)">
         <div class="newsone" v-if="item.form==1">
-          <h4  @click="article(item.id)" >{{item.title}}</h4>
-          <img :src="item.url[0]" @click="article(item.id)">
-          <p>{{item.content}}</p>
+          <img :src="item.url[0]" >
+          <p>{{item.title}}</p>
+          <div style="clear:both;" ></div>
           <div class="icon">
-            <span><i class="el-icon-time"></i>{{item.time}}</span>
-            <span>赞（{{item.good}}）</span>
-            <span>阅读（{{item.read}}）</span>
-            <span>评论（{{item.comment}}）</span>
+            <span style="margin-top:4px;"><i class="el-icon-time"></i>{{item.time}}</span>
+            <div>
+              <span>赞（{{item.good}}）</span>
+              <span>阅读（{{item.read}}）</span>
+              <span>评论（{{item.comment}}）</span>
+            </div>
           </div>
         </div>
-        <div class="newsthree" v-else-if="item.form==3">
+        <div class="newsthree" v-else-if="item.form==3" @click="article(item.id)">
+          <h4  >{{item.title}}</h4>
+          <p style="font-weight:normal">{{item.content}}</p>
+          <div class="icon">
+            <span style="margin-top:4px;"><i class="el-icon-time"></i>{{item.time}}</span>
+            <div>
+              <span>赞（{{item.good}}）</span>
+              <span>阅读（{{item.read}}）</span>
+              <span>评论（{{item.comment}}）</span>
+            </div>
+          </div>
+        </div>
+        <div class="newstwo" v-else-if="item.form==2">
           <h4  @click="article(item.id)">{{item.title}}</h4>
-          <p>{{item.content}}</p>
-          <div class="icon">
-            <span><i class="el-icon-time"></i>{{item.time}}</span>
-            <span>赞（{{item.good}}）</span>
-            <span>阅读（{{item.read}}）</span>
-            <span>评论（{{item.comment}}）</span>
+          <div>
+            <img  @click="article(item.id)" style="margin-left:0;" :src="item.url[0]">
+            <img  @click="article(item.id)" :src="item.url[1]">
+            <img  @click="article(item.id)" :src="item.url[2]">
           </div>
-        </div>
+          <div class="icon">
+            <span style="margin-top:4px;"><i class="el-icon-time"></i>{{item.time}}</span>
+            <div>
+              <span>赞（{{item.good}}）</span>
+              <span>阅读（{{item.read}}）</span>
+              <span>评论（{{item.comment}}）</span>
+            </div>
+            
+          </div>
       </div>
+      </div>
+      
       <div class="dashline"></div>
       <div class="conbot" v-show="conbotis" @click="indexdataget(10)">
-        查看更多 精彩文章
+        {{conis}}
       </div>
     </div>
   </div>
@@ -56,6 +78,7 @@ export default {
       baseurl:Url.baseurl,
       newcontentis:false,
       indexdata:[],
+      conis:'查看更多 精彩文章'
     }
   },
   beforeDestroy: function () {
@@ -126,6 +149,7 @@ export default {
       window.onscroll = function(){
       　　if(getScrollTop() + getWindowHeight() == getScrollHeight()){
       　　　 if(vm.conbotis==true){
+                vm.conis="加载中..."
                 vm.indexdataget(10);
             }
       　　}
@@ -172,14 +196,17 @@ export default {
                     var l=element.images.length;
                     if(l==0){
                       obj.form=3
-                    }else {
+                    }else if(l==1){
                       obj.form=1;
-                    }
+                    }else{
+                      obj.form=2;
+                    };
                     vm.indexdata.push(obj);
                   });
               }else{
                 vm.$message.warning('拉取失败!');
               }
+              vm.conis="查看更多 精彩文章";
           });
       },
        newcon(){
@@ -234,44 +261,69 @@ export default {
 }
 
 .news p{
-  font-size: 14px;
+  font-size: 16px;
   color: #333;
   width: 90%;
+  font-weight: bold;
   margin:0 auto;
   padding-bottom: 10px;
-  border-bottom: 1px dashed #d3d3d3;
 }
 .newsone img{
-  margin:0 auto;
   display: block;
-  width: 60%;
+  width: 40%;
+  margin-left: 4%;
+  float: left;
   height: auto;
   cursor: pointer;
 }
 .newsone p{
-  margin-top: 20px;
+  width: 50%;
+  float: left;
+  margin-left: 3%;
   margin-bottom: 10px;
 
 }
 .icon{
   width: 90%;
   margin: 0 auto;
+  clear: both;
   color: #d9d9d9;
   font-size: 12px;
+  height: 20px;
+  margin-top: 10px;
+}
+.icon span{
+  display: block;
+  float: left;
+}
+.icon div{
+  font-size: 12px;
+  float: right;
+}
+.newstwo{
+  padding-left: 16px;
 }
 .newstwo img{
   display: block;
-  width: 288px;
-  height: 180px;
+  width: 30%;
+  height:auto;
   float: left;
-  margin-left: 14px;
+  margin-left: 10px;
   margin-top: 12px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   cursor: pointer;
 }
 .newsthree p{
-  margin-top: 40px;
+  margin-top: 10px;
   margin-bottom: 10px;
+  font-size: 16px;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  display: -webkit-box; /** 对象作为伸缩盒子模型显示 **/
+  -webkit-box-orient: vertical; /** 设置或检索伸缩盒对象的子元素的排列方式 **/
+  -webkit-line-clamp: 2; /** 显示的行数 **/
+  overflow: hidden;  
+  padding-bottom: 0;
 
 }
 .dashline{
