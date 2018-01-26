@@ -44,6 +44,7 @@
   import qs from 'qs'
   import * as Url from '@/components/url.js'
   export default {
+
     name:'login',
     data () {
     return {
@@ -66,6 +67,13 @@
       usernameis:false,
       passwordis:false,
     }
+  },
+  computed:{
+    ...mapGetters({
+      loginis:'loginnow',
+      userurl:'urlnow',
+      userstatus:'statusnow'
+    })
   },
   methods:{
     emalicode(){
