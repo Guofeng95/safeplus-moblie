@@ -11,7 +11,7 @@
            <div v-else><img style="height:28px;width:28px;border-radius: 100%;display:block;padding-top:6px;margin:0 auto;" :src="userurl "></div>
            <div @click="onHide"><a href="#/">安全头条</a></div>
            <div @click="onHide"><a href="#/recommend">推荐</a></div>
-           <div @click="onHide" v-if='loginis'><a href="http://top.secjia.com/#/usercenter">个人中心</a></div>
+           <div @click="onHide" v-if='loginis'><a href="http://top.sunliangliang.com/#/usercenter">个人中心</a></div>
            <div @click="setout" v-if='loginis'><a style="cursor:pointer" >退出登录</a></div>
           </div>
           <div class="totop" id="topall">

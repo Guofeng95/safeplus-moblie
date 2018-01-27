@@ -56,7 +56,6 @@
   },
   beforeRouteEnter (to, from, next){
     if(from.path=="/article"){
-      console.log(from)
       sessionStorage.setItem("urlgo",from.fullPath);
     }
     next();
