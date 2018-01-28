@@ -84,6 +84,7 @@
                   // }else if(response.data.verified==3){
                   //   vm.$store.state.userstatus="已认证"
                   // }
+                
                 vm.$store.state.userurl=response.data.avatar;
                 vm.$store.state.loginis=true;
                 var urlgo=sessionStorage.getItem('urlgo');

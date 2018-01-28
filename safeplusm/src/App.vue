@@ -71,20 +71,19 @@ export default {
   },
   mounted(){
     var vm=this;
-    //console.log(axios)
    axios({
         method:'post',
         url:vm.baseurl+'/user/ping',
     }).then(function(response){
         if(response.data.status==1){
           vm.$store.state.loginis=true;
-          if(response.data.verified==1){
-            vm.$store.state.userstatus="未认证"
-          }else if(response.data.verified==2){
-            vm.$store.state.userstatus="待确认"
-          }else if(response.data.verified==3){
-            vm.$store.state.userstatus="已认证"
-          }
+          // if(response.data.verified==1){
+          //   vm.$store.state.userstatus="未认证"
+          // }else if(response.data.verified==2){
+          //   vm.$store.state.userstatus="待确认"
+          // }else if(response.data.verified==3){
+          //   vm.$store.state.userstatus="已认证"
+          // }
           vm.$store.state.userurl=response.data.avatar;
         }else{
           vm.$store.state.loginis=false;
