@@ -60,7 +60,8 @@ export default {
       if(this.$store.state.loginis){
         window.location.href="http://top.sunliangliang.com/#/usercenter"
       }else{
-         alert("您还未登录哦，点击右上角图标登录哦！")
+         alert("您还未登录哦，点击右上角图标登录哦！");
+         window.location.href="#/login"
       }
       
     },

@@ -268,7 +268,7 @@ export default {
 }
 
 .news {
-  border-top: 1px solid #d3d3d3;
+  border-top: 1px solid #dcdfe6;
   overflow: hidden;
   padding-top: 10px;
   padding-bottom: 10px;
