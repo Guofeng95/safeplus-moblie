@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import index from '@/components/index'
 import login from '@/components/login'
+import rstwd from '@/components/resetpassward'
 import reset from '@/components/reset'
 import toutiao from '@/components/index/toutiao'
 import recommend from '@/components/index/recommend'
@@ -48,5 +49,10 @@ export default new Router({
       name: 'reset',
       component: reset
     },
+    {
+      path: '/forget',
+      name: 'rstwd',
+      component: rstwd
+    }
   ]
 })

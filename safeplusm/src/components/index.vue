@@ -4,7 +4,7 @@
     	<div class="nav">
     		<a href="#/recommend" style="width:40px;" @click="light('recommend')" id="recommend">推 荐</a>
     		<a href="#/" style="color: #71b34f;" @click="light('toutiao')" id="toutiao">安全头条</a>
-    		<a href="http://top.sunliangliang.com/#/usercenter">用户中心</a>
+    		<a @click="gowhere" >用户中心</a>
     	</div>
     </div>
     <div class="matop"id="topno"></div>
@@ -58,7 +58,7 @@ export default {
     gowhere(){
 
       if(this.$store.state.loginis){
-        window.location.href="http://top.secjia.com/#/usercenter"
+        window.location.href="http://top.sunliangliang.com/#/usercenter"
       }else{
          alert("您还未登录哦，点击右上角图标登录哦！")
       }

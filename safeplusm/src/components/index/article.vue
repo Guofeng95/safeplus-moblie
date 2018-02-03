@@ -120,8 +120,8 @@
     <div class="bigimg" v-show="bigimgis">
       <div>
         <img class="imges" :src="nowbig">
-        <span @click="bigchange('left')"><img style="width:30px;" src="/static/img/imgleft.png"></span>
-        <span style="left:80vw;" @click="bigchange('right')"><img img style="width:30px;" src="/static/img/imgright.png"></span>
+        <span class="imgleft" @click="bigchange('left')"><img style="width:30px;" src="/static/img/imgleft.png"></span>
+        <span class="imgright" @click="bigchange('right')"><img img style="width:30px;" src="/static/img/imgright.png"></span>
         <span class="imgno"  @click="hdpout('no')"><img src="/static/img/imgno.png"></span>
       </div>
     </div>
@@ -208,33 +208,19 @@ export default {
       
   },
   beforeDestroy: function () {
-    this.display("block")
+    this.display("block");
+    
   },
   mounted(){
-    this.display("none")
     this.reset();
-    var vm=this;
-    function getScrollTop(){
-      　　var scrollTop = 0, bodyScrollTop = 0, documentScrollTop = 0;
-      　　if(document.body){
-      　　　　bodyScrollTop = document.body.scrollTop;
-      　　}
-      　　if(document.documentElement){
-      　　　　documentScrollTop = document.documentElement.scrollTop;
-      　　}
-      　　scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
-      　　return scrollTop;
-      }
 
-      window.onscroll=function(){
-        var sco=getScrollTop();
-        if(sco==0){
-          vm.display("block");
-        }
-      }
+    
+    var vm=this;
+    
   },
   methods:{
     display(num){
+
       var id =document.getElementById("topall");
       var id1 =document.getElementById("topindex");
       var id2 =document.getElementById("topno");
@@ -244,8 +230,9 @@ export default {
     },
     reset(){
     var vm=this;
-    document.body.scrollTop = 0;
+    document.body.scrollTop =0;
     document.documentElement.scrollTop = 0;
+    this.display("none");
     this.tagchangedata=[];
     var comis=window.location.href.indexOf("comid");
     if(comis>-1){
@@ -315,7 +302,27 @@ export default {
           alert(response.data.msg)
         }
     });
-    this.comment()
+    this.comment();
+    function getScrollTop(){
+      　　var scrollTop = 0, bodyScrollTop = 0, documentScrollTop = 0;
+      　　if(document.body){
+      　　　　bodyScrollTop = document.body.scrollTop;
+      　　}
+      　　if(document.documentElement){
+      　　　　documentScrollTop = document.documentElement.scrollTop;
+      　　}
+      　　scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
+      　　return scrollTop;
+      }
+      setTimeout(function(){
+        window.onscroll=function(){
+        var sco=getScrollTop();
+          if(sco==0){
+            vm.display("block");
+          }
+        }
+      }, 500)
+      
     },
     narticle(id){
         window.location.href='#/article?topid='+id;
@@ -433,7 +440,8 @@ export default {
               if(vm.$store.state.loginis){
                  alert(response.data.msg)
               }else{
-                alert("您还未登录哦，点击右上角图标登录哦！")
+                alert("您还未登录哦，点击右上角图标登录哦！");
+                 window.location.href="#/login"
               }
 		         
 		        }
@@ -473,7 +481,8 @@ export default {
           if(vm.$store.state.loginis){
              alert(response.data.msg)
           }else{
-            alert("您还未登录哦，点击右上角图标登录哦！")
+            alert("您还未登录哦，点击右上角图标登录哦！");
+            window.location.href="#/login"
           }
         }
 	   });
@@ -505,7 +514,8 @@ export default {
         		alert("请输入1-300个字！")
         }
       }else{
-         alert("您还未登录哦，点击右上角图标登录哦！")
+         alert("您还未登录哦，点击右上角图标登录哦！");
+          window.location.href="#/login";
       }
   	},
     compleng(){
@@ -874,12 +884,16 @@ export default {
   border-radius: 100%;
   background: #ccc;
   position: absolute;
-  left: 10px;
-  top: 100px;
+  top: 40%;
+}
+.bigimg .imgleft{
+  left: 10%;
+}
+.bigimg .imgright{
+right: 10%;
 }
 .bigimg .imgno{
 	top: -50px;
-	left: -20px;
 	width: 30px;
   height: 30px;
   padding-top: 10px;
@@ -902,6 +916,7 @@ export default {
     border:none;
     border-radius: 0px;
     top: 15%;
+    left: 0;
     margin:0 auto;
   }
   .bigimg .imges{

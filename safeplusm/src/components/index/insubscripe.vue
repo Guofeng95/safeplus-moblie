@@ -301,14 +301,14 @@ export default {
 }
 .newsone img{
   display: block;
-  width: 40%;
+  width: 30%;
   margin-left: 4%;
   float: left;
   height: auto;
   cursor: pointer;
 }
 .newsone p{
-  width: 50%;
+  width: 60%;
   float: left;
   margin-left: 3%;
   margin-bottom: 10px;

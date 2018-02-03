@@ -20,21 +20,21 @@
         </div>
         <div style="clear:both"></div>
         <a class="btn" @click="resetgo">立即注册</a>
-       <!--  <div class="btna">
-          <a style="background:#00cc33">
-            <img style="margin-top:4px;margin-left:6px;margin-right:2px;" src="/static/img/wx.png">微信
-          </a>
-          <a style="background:#ff0000;margin-left:10px;margin-right:10px;">
-            <img style="margin-left:6px;" src="/static/img/wb.png">微博
-          </a>
-          <a style="background:#00ccff;line-height:34px;">
-            <img style="margin-left:8px;margin-top:2px;margin-right:3px;" src="/static/img/qq.png">QQ
-          </a>
-        </div> -->
+       <div class="btna">
+        <a style="background:#00cc33" :href="baseurl+'/user/wxlog'">
+          <img style="margin-top:4px;margin-left:6px;margin-right:2px;" src="/static/img/wx.png">微信
+        </a>
+        <a style="background:#ff0000;margin-left:10px;margin-right:10px;" :href="baseurl+'/user/wblog'">
+          <img style="margin-left:6px;" src="/static/img/wb.png">微博
+        </a>
+        <a style="background:#00ccff;line-height:34px;" :href="baseurl+'/user/qqlog'">
+          <img style="margin-left:8px;margin-top:2px;margin-right:3px;" src="/static/img/qq.png">QQ
+        </a>
+      </div>
       <div class="ahref">
         <p>已有账号？</p>
         <a href="#/login">登录</a>
-        <!-- <a @click="login" class="forgot" href="/forget">忘记密码</a> -->
+        <a @click="login" class="forgot" href="#/forget">忘记密码</a>
       </div>
   </div>
 </template>
