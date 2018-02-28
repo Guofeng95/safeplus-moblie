@@ -196,10 +196,10 @@ export default {
                     var l=element.images.length;
                     if(l==0){
                       obj.form=3
-                    }else if(l==1){
-                      obj.form=1;
-                    }else{
+                    }else if(l==3){
                       obj.form=2;
+                    }else{
+                      obj.form=1;
                     };
                     vm.indexdata.push(obj);
                   });

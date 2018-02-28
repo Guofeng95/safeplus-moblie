@@ -74,7 +74,7 @@ export default {
   },
    mounted(){
     var vm=this;
-    this.subscripe=sessionStorage.getItem("subscripe");
+    this.subscripe=decodeURIComponent(window.location.href.split("insubscripe?")[1],"utf8");;
     this.indexdata=[];
     this.indexdataget(7,"first");
      

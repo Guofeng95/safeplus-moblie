@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
      <meta name="keywords" content="安全头条,安全,头条,头条网,头条安全新闻,网络安全事件,信息网络安全"/>
     <meta name="description" content="安全头条是安全加社区的资讯版块，追踪网络安全事件，打造信息网络安全的头条新闻；发布网络安全文章，呈现网络安全现状"/>
-    <title>safeplusm</title>
+    <title>安全头条-安全加</title>
     <script type="text/javascript">
       if( ('onhashchange' in window) && ((typeof document.documentMode==='undefined') || document.documentMode==8)) {
           // 浏览器支持onhashchange事件
@@ -17,9 +17,11 @@
          var href=window.location.href;
          if(flag){
             if(href.indexOf('m.secjia.com/#/article')>-1){
-              window.location.href=href.replace('m.secjia.com/#/article',"toutiao.secjia.com/article/page")
+              window.location.href=href.replace('m.sunliangliang.com/#/article',"top.sunliangliang.com/article/page")
+            }else if(href.indexOf('m.secjia.com/#/insubscripe')>-1){
+              window.location.href=href.replace('m.sunliangliang.com/#/insubscripe?',"top.sunliangliang.com/article/keyword?kw=")
             }else{
-              window.location.href=href.replace('m.secjia.com',"toutiao.secjia.com")
+              window.location.href=href.replace('m.sunliangliang.com',"top.sunliangliang.com")
             }
             
             

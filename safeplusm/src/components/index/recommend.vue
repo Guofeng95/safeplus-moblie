@@ -123,8 +123,8 @@ export default {
   },
   methods:{
       scripe(name){
-        sessionStorage.setItem("subscripe", name);
-        window.location.href="#/insubscripe"
+        //sessionStorage.setItem("subscripe", name);
+        window.location.href="#/insubscripe?"+encodeURIComponent(name)
       },
      article(id){
         window.location.href='#/article?topid='+id;
