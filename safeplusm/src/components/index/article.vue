@@ -261,6 +261,7 @@ export default {
     
     var date={};
     date.id=this.id;
+    date.with_doc=1
     vm.aurl=window.location.href;
     axios({
         method:'post',
