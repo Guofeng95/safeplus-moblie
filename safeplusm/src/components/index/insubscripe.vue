@@ -5,7 +5,7 @@
           <el-button class="dybtn" type="success" @click="subscr('new')" v-if="subis">我要订阅</el-button>
           <el-button class="dybtn" type="success" @click="subscr('old')" v-if="subis==false">已订阅</el-button>
        </div>
-       
+
       <div class="news" v-for="(item,index) in indexdata" :key="index" >
         <div class="newsone" v-if="item.form==1" @click="article(item.id)">
           <img :src="item.url[0]" >
@@ -58,7 +58,7 @@ export default {
     return {
       nextnotice:'',
       timer:'',
-      conbotis:true,
+      conbotis:false,
       notice:'',
       baseurl:Url.baseurl,
       newcontentis:false,
@@ -74,7 +74,7 @@ export default {
   },
    mounted(){
     var vm=this;
-    this.subscripe=decodeURIComponent(window.location.href.split("insubscripe?")[1],"utf8");;
+    this.subscripe=decodeURIComponent(window.location.href.split("keyword?")[1],"utf8");;
     this.indexdata=[];
     this.indexdataget(7,"first");
      
@@ -178,7 +178,7 @@ export default {
                     vm.indexdata.push(obj);
                   });
               }else{
-                vm.$message.warning('拉取失败!');
+                alert(response.data.msg);
               }
           });
       },
@@ -358,7 +358,8 @@ export default {
 
 }
 .dashline{
-  border-top: 1px dashed #d3d3d3;
+  clear: both;
+  border-top: 1px solid #dcdfe6;
 }
 .conbot{
   color: #fff;

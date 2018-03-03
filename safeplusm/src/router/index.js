@@ -30,7 +30,7 @@ export default new Router({
           component: recommend
         },
         {
-          path: '/insubscripe',
+          path: '/keyword',
           component: insubscripe
         },
         {

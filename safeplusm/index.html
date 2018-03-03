@@ -16,15 +16,22 @@
         var flag = IsPC();
          var href=window.location.href;
          if(flag){
-            if(href.indexOf('m.secjia.com/#/article')>-1){
+            if(href.indexOf('m.sunliangliang.com/#/article')>-1){
               window.location.href=href.replace('m.sunliangliang.com/#/article',"top.sunliangliang.com/article/page")
-            }else if(href.indexOf('m.secjia.com/#/insubscripe')>-1){
-              window.location.href=href.replace('m.sunliangliang.com/#/insubscripe?',"top.sunliangliang.com/article/keyword?kw=")
+            }else if(href.indexOf('m.sunliangliang.com/#/insubscripe')>-1){
+              window.location.href=href.replace('m.sunliangliang.com/#/keyword?',"top.sunliangliang.com/article/keyword?kw=")
             }else{
               window.location.href=href.replace('m.sunliangliang.com',"top.sunliangliang.com")
             }
             
-            
+         }
+         if(!flag){
+            if(href.indexOf('top.sunliangliang.com/article/page')>-1){
+              window.location.href=href.replace("top.sunliangliang.com/article/page",'m.sunliangliang.com/#/article')
+            }
+            if(href.indexOf("top.sunliangliang.com/article/keyword?kw=")>-1){
+              window.location.href=href.replace("top.sunliangliang.com/article/keyword?kw=",'m.sunliangliang.com/#/keyword?')
+            }
          }
       }
       function IsPC() {

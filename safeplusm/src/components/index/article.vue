@@ -20,7 +20,7 @@
         
       </p>
     </div>
-  	<div v-html="article" style="font-size:14px;">
+  	<div id="articlenowok" v-html="article" style="font-size:14px;">
   	</div>
   	<div class="down" v-if="downloaddata.length!=0">
   		<h4 class="hf">文章附件</h4>
@@ -213,8 +213,6 @@ export default {
   },
   mounted(){
     this.reset();
-
-    
     var vm=this;
     
   },
@@ -299,8 +297,28 @@ export default {
           vm.lasttitle=response.data.related_data.older_news.title;
           vm.nexturl=response.data.related_data.newer_news.id;
           vm.nexttitle=response.data.related_data.newer_news.title;
+
+          setTimeout(function(){
+            var article=document.getElementById("articlenowok")
+            var imgsl=article.getElementsByTagName('img');
+            console.log(imgsl)
+            var l=imgsl.length;
+            for(var i=0;i<l;i++){
+              // alert(document.body.clientWidth)
+              // alert(imgsl[i].width)
+              if( imgsl[i].width > document.body.clientWidth){
+                var height = (imgsl[i].height/imgsl[i].width).toFixed(2)*90;
+                //console.log(height)
+                imgsl[i].style.width = '90vw';
+                imgsl[i].style.height = height+'vw';
+              }
+              
+            }
+            
+          }, 100)
+          
         }else{
-          alert(response.data.msg)
+          alert(response.data.msg);
         }
     });
     this.comment();
@@ -372,11 +390,11 @@ export default {
       var tr=document.getElementById("tagright");
       h4.style.color = '#a1a1a1';
       tl.style.borderColor = '#d7d7d7';
-      tr.style.borderColor = '#d7d7d7' 
+      tr.style.borderColor = '#d7d7d7';
     },
     scripe(name){
-      sessionStorage.setItem("subscripe", name);
-      window.location.href="#/insubscripe"
+      //sessionStorage.setItem("subscripe", name);
+      window.location.href="#/keyword?"+encodeURIComponent(name);
     },
   	bigchange(lr){
   		if(lr=='left'){
@@ -927,4 +945,5 @@ right: 10%;
     margin: 0 auto;
   }
 }
+
 </style>
