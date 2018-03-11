@@ -273,7 +273,7 @@ export default {
   width: 30%;
   margin-left: 4%;
   float: left;
-  height: auto;
+  height: 22vw;
   cursor: pointer;
 }
 .newsone p{
@@ -301,7 +301,7 @@ export default {
   float: right;
 }
 .newstwo{
-  padding-left: 16px;
+  /*padding-left: 16px;*/
 }
 .newstwo img{
   display: block;
