@@ -303,6 +303,9 @@ export default {
 .newstwo{
   padding-left: 16px;
 }
+.newstwo h4{
+  margin-left: 0;
+}
 .newstwo img{
   display: block;
   width: 30%;
