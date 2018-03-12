@@ -280,8 +280,7 @@ export default {
           vm.tagdatanow(response.data.keywords[0])
           vm.article=response.data.doc;
           vm.zannum=obj.like_count;
-          vm.hdpurl=obj.images;
-          vm.nowbig=obj.images[0];
+          
           vm.scnum=response.data.extra_data.mark_count;
           if(response.data.extra_data.liked==1){
             vm.likeis=false;
@@ -303,18 +302,32 @@ export default {
             var imgsl=article.getElementsByTagName('img');
             console.log(imgsl)
             var l=imgsl.length;
+            var imgsrcarr=[];
             for(var i=0;i<l;i++){
               // alert(document.body.clientWidth)
               // alert(imgsl[i].width)
+              imgsrcarr.push(imgsl[i].src) 
               if( imgsl[i].width > document.body.clientWidth){
                 var height = (imgsl[i].height/imgsl[i].width).toFixed(2)*90;
                 //console.log(height)
                 imgsl[i].style.width = '90vw';
                 imgsl[i].style.height = height+'vw';
-              }
-              
+              };
+              imgsl[i].onclick=function(){
+                var src=this.src;
+                vm.hdpurl.forEach( function(element, index) {
+                   if(element==src){
+                      vm.nowbignum=index;
+                      vm.nowbig=vm.hdpurl[index];
+                   }
+                }); 
+                vm.hdpout();
+
+              };
             }
-            
+            vm.nowbignum=0;
+            vm.hdpurl=imgsrcarr;
+            vm.nowbig=imgsrcarr[0];
           }, 100)
           
         }else{
@@ -415,15 +428,25 @@ export default {
 
   	},
   	hdpout(no){
+      var bodyScrollTop=0;
+      if(document.body){
+  　　　　bodyScrollTop = document.body.scrollTop;
+  　　}
+  　　if(document.documentElement){
+  　　　　bodyScrollTop = document.documentElement.scrollTop;
+  　　}
        var id=document.getElementById("vue-all");
+       var id1=document.getElementsByClassName("bigimg")[0];
   		if(no=="no"){
   			this.bigimgis=false;
   			this.nowbignum=0;
   			this.nowbig=this.hdpurl[0];
-         id.style.overflow = 'auto';
+        id.style.overflow = 'auto';
+        
   		}else{
   			this.bigimgis=true;
         id.style.overflow = 'hidden';
+        id1.style.top = bodyScrollTop+"px";
   		}
   		
   	},
@@ -871,7 +894,7 @@ export default {
   margin-right: 8px;
 }
 .bigimg{
-  position: fixed;
+  position: absolute;
   width: 100%;
   height: 100%;
   background: rgba(0,0,0,0.6);
