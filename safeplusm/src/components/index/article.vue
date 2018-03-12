@@ -861,7 +861,7 @@ export default {
   width: 700px;
   padding-top:20px;
   margin-left: 50px;
-  font-size: 14px;
+  font-size: 12px;
   color: #333;
 }
 .combtn{

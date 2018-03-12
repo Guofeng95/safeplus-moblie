@@ -273,7 +273,7 @@ export default {
   width: 30%;
   margin-left: 4%;
   float: left;
-  height: auto;
+  height: 22vw;
   cursor: pointer;
 }
 .newsone p{
@@ -309,7 +309,7 @@ export default {
 .newstwo img{
   display: block;
   width: 30%;
-  height:auto;
+  height:20vw;
   float: left;
   margin-left: 10px;
   margin-top: 12px;
