@@ -34,7 +34,7 @@
       <div class="ahref">
         <p>已有账号？</p>
         <a href="#/login">登录</a>
-        <a @click="login" class="forgot" href="#/forget">忘记密码</a>
+        <a class="forgot" href="#/forget">忘记密码</a>
       </div>
   </div>
 </template>

@@ -26,7 +26,7 @@
       <div class="ahref">
         <p>还没有账号？</p>
         <a href="#/reset">注册</a>
-        <a @click="login" class="forgot" href="#/forget">忘记密码</a>
+        <a class="forgot" href="#/forget">忘记密码</a>
       </div>
   </div>
 </template>

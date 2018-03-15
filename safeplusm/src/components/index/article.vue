@@ -249,11 +249,11 @@ export default {
         document.documentElement.scrollTop = com;
       }, 100);
     }else{
-      var arr=window.location.href.split('?')[1].split("=");
-      this.id=arr[1];
-      if(arr[0]=="topid"){
+      var arr=window.location.href.split('topid=')[1];
+      this.id=arr;
+      //if(arr[0]=="topid"){
         this.secondtit="安全头条"
-      };
+      //};
     }
     
     
@@ -378,7 +378,7 @@ export default {
               response.data.data.forEach( function(element, index) {
                 var obj={};
                 obj.id=element.id;
-                obj.title=element.summary;
+                obj.title=element.title;
                 vm.tagchangedata.push(obj);
               });
             }

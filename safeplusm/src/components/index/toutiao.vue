@@ -31,7 +31,7 @@
         </div>
         <div class="newstwo" v-else-if="item.form==2">
           <h4  @click="article(item.id)">{{item.title}}</h4>
-          <div>
+          <div style="padding-left:16px;">
             <img  @click="article(item.id)" style="margin-left:0;" :src="item.url[0]">
             <img  @click="article(item.id)" :src="item.url[1]">
             <img  @click="article(item.id)" :src="item.url[2]">
@@ -301,10 +301,11 @@ export default {
   float: right;
 }
 .newstwo{
-  padding-left: 16px;
+  /*padding-left: 16px;*/
 }
 .newstwo h4{
   margin-left: 0;
+  padding-left: 16px;
 }
 .newstwo img{
   display: block;
