@@ -215,7 +215,6 @@ export default {
   mounted(){
     this.reset();
     var vm=this;
-    
   },
   methods:{
     display(num){
