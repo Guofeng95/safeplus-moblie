@@ -15,12 +15,12 @@
         <span>
           <span>{{'阅读('+readnum+')'}}</span>
           <span>{{'评论('+comnum+')'}}</span>
-           <img style="cursor:pointer;" @click='hdpout' src="/static/img/hdp.png">
+           <img v-if="hdpurl.length>0" style="cursor:pointer;" @click='hdpout' src="/static/img/hdp.png">
         </span>
         
       </p>
     </div>
-  	<div id="articlenowok" v-html="article" style="font-size:14px;">
+  	<div id="articlenowok" v-html="article" style="font-size:12px; color:#868686;">
   	</div>
   	<div class="down" v-if="downloaddata.length!=0">
   		<h4 class="hf">文章附件</h4>
@@ -168,18 +168,18 @@ export default {
       	// "http://7xkk1o.com1.z0.glb.clouddn.com/c895952e7031e7444a4c9fcd7afeb041.jpg"
       ],
       arttime:'',
-      comnum:5454,
-      readnum:4,
-      artauthor:'dk',
-      artitle:'wd',
+      comnum:0,
+      readnum:0,
+      artauthor:'',
+      artitle:'',
       level:'',
       conleng:0,
       textarea:'',
       id:'',
       aurl:'http://toutiao.secjia.com/wannacry-2-0-protection',
       secondtit:'',
-      thirdtit:'文章分类1',
-      article:'<h2>wenzhang</h2>',
+      thirdtit:'',
+      article:'',
       downloaddata:[
       // {
       // 	"url":"djd1",
@@ -211,6 +211,7 @@ export default {
     this.display("block");
     
   },
+  
   mounted(){
     this.reset();
     var vm=this;
@@ -244,7 +245,6 @@ export default {
       this.comid=arr2;
       setTimeout(function() {
         var com=document.getElementById('c'+vm.comid).offsetTop;
-        //console.log(com)
         document.body.scrollTop = com;
         document.documentElement.scrollTop = com;
       }, 100);
@@ -272,6 +272,7 @@ export default {
         if(response.data.status==1){
           var obj=response.data.news_data
           vm.artitle=obj.title;
+          document.title =obj.title;
           vm.artauthor=response.data.author;
           vm.arttime=obj.publish_time;
           vm.readnum=obj.read_count;
