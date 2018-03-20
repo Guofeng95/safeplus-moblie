@@ -26,9 +26,16 @@
                     placeholder="搜索安全信息"
                     suffix-icon="el-icon-search"
                     v-model="search"
+                    @focus="focussearch"
+                    @blur="blursearch"
                     @change="keysearch">
                   </el-input>
                   <span class="span1" @click="gosearch"></span>
+                </div>
+                <div class="searchmind" v-show="mindis">
+                  <p v-for="(item,index) in mind" :key="index" @click="mindsearch(item)">
+                    {{item}}
+                  </p>
                 </div>
                 <a v-on:click="drawerToggle">
                   <img src="/static/img/topnav.png"  style="top:8px;right:8px;">
@@ -67,7 +74,9 @@ export default {
       baseurl:Url.baseurl,
       pos: 'right',
       tran: 'overlay',
-      drawerShow: false,  
+      drawerShow: false,
+      mind:[],
+      mindis:false
     }
   },
   mounted(){
@@ -124,10 +133,50 @@ export default {
     onShow() {
      //console.log('show');
    },
+   focussearch(){
+    var vm=this;
+    var id=document.querySelector(".search input");
+      //console.log(this.search)
+    id.onkeyup=function(e){
+      if(e.keyCode!=13 && vm.search!=''){
+        var date={};
+        date.query=vm.search;
+        axios({
+          method:'post',
+          data:qs.stringify(date),
+          url:vm.baseurl+'/article/list_autocomplete',
+      }).then(function(response){
+          if(response.data.status==1){
+            //console.log(response.data.suggestions)
+            if(response.data.suggestions.length>0){
+              vm.mind=[];
+              vm.mind=response.data.suggestions;
+              // response.data.suggestions.forEach( function(element, index) {
+              //   vm.mindarr.push(element);
+              // });
+              vm.mindis=true;
+            }else{
+              vm.mind=[];
+              vm.mindis=false;
+            }
+            
+          }
+        })
+      }
+    }
+  
+   },
+   blursearch(){
+    this.mindis=false;
+   },
+   mindsearch(item){
+    this.search=item;
+    this.gosearch();
+   },
     keysearch(){
       var vm=this;
       var id=document.querySelector(".search input");
-      //console.log(id)
+      //console.log(this.search)
       id.onkeydown=function(e){
         if(e.keyCode==13){
           vm.gosearch();
@@ -218,7 +267,7 @@ html {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 4;
+    z-index: 5;
   }
   .itop{
     height: 45px;
@@ -262,6 +311,30 @@ html {
   right:50px;
   position: absolute;
 }
+.searchmind{
+  width: 142px;
+  max-height:200px;
+  background: #fff;
+  position: absolute;
+  border:1px solid #ccc;
+  right: 50px;
+  top: 50px; 
+  border-radius: 4px;
+}
+.searchmind p{
+  height: 30px;
+  line-height: 30px;
+  width: 122px;
+  padding:0 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+/*.searchmind p:hover{
+  background: rgb(113, 179, 79);
+  color: #fff;
+}*/
 .search .span1{
   position: absolute;
   display: block;

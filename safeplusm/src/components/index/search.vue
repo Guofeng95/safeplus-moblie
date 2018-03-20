@@ -131,7 +131,8 @@ export default {
               if(response.data.status==1){
                 vm.total=response.data.count;
                   if( response.data.data.length!=0){
-                    vm.message="共"+vm.total+"个符合条件的结果"
+                    vm.message="共"+vm.total+"个符合条件的结果";
+                    vm.indexdata=[];
                   }else{
                     vm.indexdata=[];
                   }
