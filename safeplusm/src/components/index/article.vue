@@ -38,7 +38,7 @@
   	<div class="bottom">
       <p class="pagr" v-if="lasturl!=0"><a @click="narticle(lasturl)">上一篇：{{lasttitle}}</a></p>
       <p class="pagr" v-if="nexturl!=0"><a @click="narticle(nexturl)">下一篇：{{nexttitle}}</a></p>
-      <p style="margin-top:10px; color:#a1a1a1;">*文章为作者独立观点，不代表安全加立场</p>
+      <p style="margin-top:10px;margin-left:10px; color:#a1a1a1;">*文章为作者独立观点，不代表安全加立场</p>
       <div class="downcontent">
         <p>本文由：安全加发布，版权归属于原作者。 如果转载，请注明出处及本文链接： </p>
         <p>{{aurl}}</p>
@@ -61,7 +61,7 @@
       <button><img src="/static/img/aqq.png">分享到QQ</button> -->
     </div>
     <div class="tagzi">
-      <p style="font-size:14px;color:#a1a1a1; margin-bottom:10px;">您可能对以下关键词感兴趣哟，请用鼠标点击关键词 :</p>
+      <p style="font-size:14px;color:#a1a1a1; margin-bottom:10px;margin-left:10px">您可能对以下关键词感兴趣哟，请用鼠标点击关键词 :</p>
       <ul>
         <li v-for="(item,index) in tagdata" >
           <span style="color:#a1a1a1;" v-if="index!=0">/</span>
@@ -70,7 +70,7 @@
         </li>
       </ul>
     </div>
-    <h4 class="hf" id="tagh4" style="clear:both;">相关文章</h4>
+    <h4 class="hf" id="tagh4" style="clear:both;margin-left:10px">相关文章</h4>
     <div class="articlecot">
       <div class="left" id="tagleft" v-if="tagchangedata.length>0" >
         <p v-for="(item,index) in tagchangedata" @click="narticle(item.id)" > 
@@ -93,7 +93,7 @@
         </p>
       </div> -->
     </div>
-     <h4 class="hf" style="clear:both;padding-top:0px;margin-bottom:20px;">参与讨论</h4>
+     <h4 class="hf" style="clear:both;padding-top:0px;margin-bottom:20px;margin-left:10px">参与讨论</h4>
      <div class="context">
         <el-input
         type="textarea"
@@ -943,7 +943,7 @@ right: 10%;
 }
 .pagr{
   margin-top: 20px;
-  margin-left: 30px;
+  padding: 0 10px;
   cursor: pointer;
 }
 .pagr a{
